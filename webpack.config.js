@@ -1,18 +1,20 @@
 const HtmlWebpackPlugin     = require('html-webpack-plugin'),
       MiniCssExtractPlugin  = require('mini-css-extract-plugin'),
       CssMinimizerPlugin    = require('css-minimizer-webpack-plugin'),
+      CopyPlugin            = require('copy-webpack-plugin'),
       path                  = require('path')
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/js/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/script.boundle.js'
+        filename: 'js/script.boundle.js',
+        assetModuleFilename: 'img/[hash][ext][query]'
     },
     devtool: 'inline-source-map',
     devServer: {
-        static: './dist',
+        static: './dist'
     },
     module: {
         rules: [
@@ -33,7 +35,11 @@ module.exports = {
                     "css-loader",
                     "sass-loader",
                 ],
-            }
+            },
+            {
+                test: /\.svg/,
+                type: 'asset/resource'
+              }
         ]
     },
     optimization: {
@@ -50,6 +56,11 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: 'css/styles.css'
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: path.resolve(__dirname, 'src', 'img'), to: path.resolve(__dirname, 'dist', 'img') }
+            ]
         })
     ]
 }
