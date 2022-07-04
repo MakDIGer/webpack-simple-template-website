@@ -10,7 +10,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'js/script.boundle.js',
-        assetModuleFilename: 'img/[hash][ext][query]'
+        assetModuleFilename: 'assets/[name][ext][query]'
     },
     devtool: 'inline-source-map',
     devServer: {
@@ -39,7 +39,7 @@ module.exports = {
             {
                 test: /\.svg/,
                 type: 'asset/resource'
-              }
+            }
         ]
     },
     optimization: {
@@ -59,7 +59,7 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { from: path.resolve(__dirname, 'src', 'img'), to: path.resolve(__dirname, 'dist', 'img') }
+                { from: path.resolve(__dirname, 'src', 'img'), to: path.resolve(__dirname, 'dist', 'assets', 'img') }
             ]
         })
     ]
