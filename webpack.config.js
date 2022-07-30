@@ -44,7 +44,16 @@ module.exports = {
     },
     optimization: {
         minimizer: [
-          new CssMinimizerPlugin(),
+          new CssMinimizerPlugin({
+            minimizerOptions: {
+                preset: [
+                    "default",
+                    {
+                        discardComments: { removeAll: true },
+                    },
+                ],
+            },
+          }),
         ],
         minimize: true
     },
